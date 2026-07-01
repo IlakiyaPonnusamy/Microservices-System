@@ -3,6 +3,8 @@ package com.example.ems.serviceImplementation;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -112,6 +114,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		employeeRepo.deleteById(id);
+	}
+
+	@Override
+	public Page<Employee> fetchEmployee(int page, int size) {
+		PageRequest pageable = PageRequest.of(page, size);
+		return employeeRepo.findAll(pageable);
+		
+		/*
+		 * Pageable pageable =PageRequest.of( page,size,Sort.by("salary").descending()); 
+		 * Sort.by("salary").ascending(); orSort.by("salary"); 
+		 * Sort sort = Sort.by("department").ascending() .and(
+		 *                       Sort.by("salary") .descending());
+		 */
+		
+		/*
+		 * Sort sort = direction.equalsIgnoreCase("asc")
+		 * 
+		 * ?Sort.by(sortBy).ascending()
+		 * 
+		 * :Sort.by(sortBy).descending();
+		 */
 	}
 
 }

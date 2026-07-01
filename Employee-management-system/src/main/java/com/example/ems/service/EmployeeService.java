@@ -3,6 +3,7 @@ package com.example.ems.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public interface EmployeeService {
 	Employee updateEmployeeLastname(Long id, String ln);
 
 	void deleteById(Long id);
+
+	Page<Employee> fetchEmployee(int page, int size);
 
 
 }

@@ -2,15 +2,26 @@ package com.example.ems.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
 public class EmployeeRequestDto {
 	
 	private String employeeId;
+	@NotBlank(message = "First Name is required")
 	private String firstName;
 	private String lastName;
 	private String designation;
+	@NotNull(message = "Salary is required")
+	private Double salary;
+	private String email;
+	private String mobileNumber;
+	private String department;
+	private LocalDate dateOfJoining;
+	private String status;
+	
 	public String getEmployeeId() {
 		return employeeId;
 	}
@@ -71,11 +82,4 @@ public class EmployeeRequestDto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	private Double salary;
-	private String email;
-	private String mobileNumber;
-	private String department;
-	private LocalDate dateOfJoining;
-	private String status;
-
 }
