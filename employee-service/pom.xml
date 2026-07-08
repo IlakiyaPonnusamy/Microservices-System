@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ilakiya</groupId>
-	<artifactId>Employee-management-system</artifactId>
+	<artifactId>employee-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Employee-management-system</name>
+	<name>employee-service</name>
 	<description/>
 	<url/>
 	<licenses>
