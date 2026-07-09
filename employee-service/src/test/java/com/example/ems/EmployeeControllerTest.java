@@ -10,24 +10,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.ems.config.SecurityConfig;
 import com.example.ems.controller.EmployeeController;
 import com.example.ems.dto.EmployeeRequestDto;
 import com.example.ems.entity.Employee;
-import com.example.ems.security.JwtAuthFilter;
-import com.example.ems.security.JwtService;
 import com.example.ems.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = EmployeeController.class, excludeFilters = {
-		@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = { JwtAuthFilter.class,
-				SecurityConfig.class }) }) //Loads only the controller layer and excluding filter
+@WebMvcTest(controllers = EmployeeController.class) //Loads only the controller layer and excluding filter
 @AutoConfigureMockMvc(addFilters = false)
 public class EmployeeControllerTest {
 

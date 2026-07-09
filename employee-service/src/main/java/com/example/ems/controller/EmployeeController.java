@@ -25,7 +25,7 @@ import com.example.ems.service.EmployeeService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/employees")
 public class EmployeeController {
 
 	// field injection
