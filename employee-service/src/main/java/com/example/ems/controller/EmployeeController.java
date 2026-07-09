@@ -82,7 +82,7 @@ public class EmployeeController {
 		return ResponseEntity.ok(updatedEmp);
 	}
 
-	@DeleteMapping("/id")
+	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable Long id) {
 		empService.deleteById(id);
 	}
