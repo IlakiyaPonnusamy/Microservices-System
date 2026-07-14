@@ -27,6 +27,15 @@ public class Employee {
 	private String department;
 	private LocalDate dateOfJoining;
 	private String status;
+	
+	private Long departmentId;
+	
+	public Long getDepartmentId() {
+		return departmentId;
+	}
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
 	public Long getId() {
 		return id;
 	}

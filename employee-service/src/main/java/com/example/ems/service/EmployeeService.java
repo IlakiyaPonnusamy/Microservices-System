@@ -3,11 +3,13 @@ package com.example.ems.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.ems.dto.EmployeeRequestDto;
+import com.example.ems.dto.EmployeeResponseDto;
 import com.example.ems.entity.Employee;
 
 @Service
@@ -26,6 +28,8 @@ public interface EmployeeService {
 	void deleteById(Long id);
 
 	Page<Employee> fetchEmployee(int page, int size);
+
+	List<EmployeeResponseDto> getEmployeesByDepartmentId(Long departmentId);
 
 
 }

@@ -8,23 +8,34 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.ems.dto.EmployeeRequestDto;
+import com.example.ems.dto.EmployeeResponseDto;
 import com.example.ems.entity.Employee;
 import com.example.ems.exception.EmployeeNotFoundException;
 import com.example.ems.repository.EmployeeRepository;
 import com.example.ems.service.EmployeeService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
 	// constructor injection
 	private final EmployeeRepository employeeRepo;
+	private final DepartmentValidationService departmentValidationService;
 
-	public EmployeeServiceImpl(EmployeeRepository employeeRepo) {
+	public EmployeeServiceImpl(EmployeeRepository employeeRepo,
+			DepartmentValidationService departmentValidationService) {
 		this.employeeRepo = employeeRepo;
+		this.departmentValidationService = departmentValidationService;
 	}
 
 	@Override
+	@Transactional
 	public Employee createEmployee(EmployeeRequestDto request) {
+
+		//validating department id feign cal
+		departmentValidationService.validateDepartment(request.getDepartmentId());
+		
 		Employee emp = new Employee();
 		emp.setEmployeeId(request.getEmployeeId());
 		emp.setFirstName(request.getFirstName());
@@ -36,6 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		emp.setDateOfJoining(request.getDateOfJoining());
 		emp.setDesignation(request.getDesignation());
 		emp.setStatus(request.getStatus());
+		emp.setDepartmentId(request.getDepartmentId());
 
 		return employeeRepo.save(emp);
 
@@ -91,6 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		emp.setDateOfJoining(request.getDateOfJoining());
 		emp.setDesignation(request.getDesignation());
 		emp.setStatus(request.getStatus());
+		emp.setDepartmentId(request.getDepartmentId());
 		return employeeRepo.save(emp);
 	}
 
@@ -134,6 +147,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		 * 
 		 * :Sort.by(sortBy).descending();
 		 */
+	}
+
+	@Override
+	public List<EmployeeResponseDto> getEmployeesByDepartmentId(Long departmentId) {
+
+		return employeeRepo.findByDepartmentId(departmentId).stream()
+				.map(employee -> new EmployeeResponseDto(employee.getId(), employee.getFirstName(),
+						employee.getLastName(), employee.getDesignation(), employee.getSalary(), employee.getEmail(),
+						employee.getMobileNumber(), employee.getDepartment(), employee.getDateOfJoining(),
+						employee.getStatus(), employee.getDepartmentId()))
+				.toList();
 	}
 
 }

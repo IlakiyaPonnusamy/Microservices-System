@@ -1,6 +1,7 @@
 package com.example.ems.controller;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ems.dto.EmployeeRequestDto;
+import com.example.ems.dto.EmployeeResponseDto;
 import com.example.ems.entity.Employee;
 import com.example.ems.service.EmployeeService;
 
@@ -85,5 +87,13 @@ public class EmployeeController {
 	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable Long id) {
 		empService.deleteById(id);
+	}
+	
+	@GetMapping("/department/{departmentId}")
+	public ResponseEntity<List<EmployeeResponseDto>> getEmployeesByDepartmentId(
+
+			@PathVariable Long departmentId) {
+
+		return ResponseEntity.ok(empService.getEmployeesByDepartmentId(departmentId));
 	}
 }
